@@ -1,7 +1,8 @@
+# main.py
 import subprocess
 import os
-import json
 from record import record_voice
+import pyttsx3  # NEW: For Text-to-Speech
 
 # === Path Config ===
 WHISPER_BIN = os.path.expanduser("~/whisper.cpp/build/bin/whisper-cli")
@@ -11,23 +12,16 @@ LLAMA_MODEL = os.path.expanduser(
     "~/llama.cpp/models/mistral-7b-instruct-v0.1.Q4_K_M.gguf")
 
 AUDIO_FILE = "my_voice.wav"
-MEMORY_FILE = "memory.json"
 
-# === Load & Save Memory ===
-
-
-def load_memory():
-    if os.path.exists(MEMORY_FILE):
-        with open(MEMORY_FILE, "r") as f:
-            return json.load(f)
-    return []
+# === NEW: Text-to-Speech Function ===
 
 
-def save_memory(memory):
-    with open(MEMORY_FILE, "w") as f:
-        json.dump(memory, f, indent=2)
+def speak(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
 
-# === Transcribe with Whisper ===
+# === Transcription ===
 
 
 def transcribe(audio_path):
@@ -37,6 +31,7 @@ def transcribe(audio_path):
     if result.returncode != 0:
         print("❌ Whisper failed:", result.stderr)
         return ""
+
     lines = result.stdout.strip().split("\n")
     transcript = ""
     for line in reversed(lines):
@@ -46,7 +41,7 @@ def transcribe(audio_path):
     print(f"📝 You said: {transcript}")
     return transcript
 
-# === Ask LLaMA ===
+# === Query LLaMA ===
 
 
 def query_llama(prompt):
@@ -56,21 +51,18 @@ def query_llama(prompt):
     if result.returncode != 0:
         print("❌ LLaMA failed:", result.stderr)
         return ""
+
     output = result.stdout.strip()
     print("\n🧠 LLaMA says:")
     print(output)
     return output
 
 
-# === Main ===
+# === Main App ===
 if __name__ == "__main__":
-    print("🎙️ Welcome to MemoryMate v0.1 (Offline AI)")
+    print("🎙️ Welcome to MemoryMate v0.2 (Offline AI + TTS)")
     record_voice(filename=AUDIO_FILE, duration=5)
     user_text = transcribe(AUDIO_FILE)
     if user_text:
         response = query_llama(user_text)
-
-        # Save to memory
-        memory = load_memory()
-        memory.append(f"User: {user_text}\nAssistant: {response}")
-        save_memory(memory)
+        speak(response)  # NEW: Speak the response aloud
