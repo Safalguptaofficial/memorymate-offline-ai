@@ -1,116 +1,123 @@
-# 🧠 MemoryMate: Offline AI Voice Assistant
+# 🎙️ MemoryMate v0.2 – Offline AI Assistant
 
-MemoryMate is an **offline AI voice assistant** that listens, remembers, and replies — all without an internet connection. Powered by [Whisper.cpp](https://github.com/ggerganov/whisper.cpp) for speech-to-text and [LLaMA.cpp](https://github.com/ggerganov/llama.cpp) for local language processing, it ensures **complete privacy** and blazing-fast performance.
+> 🔒 100% Offline. 💬 Voice-powered. 🧠 Locally intelligent.
 
----
-
-## 🚀 Features
-
-- 🎤 **Voice Input:** Speak naturally using your mic
-- 🧠 **Long-Term Memory:** Remembers past interactions
-- 🤖 **Natural Responses:** Replies using LLaMA-based local inference
-- 🛡️ **Private:** Entirely offline, no data is ever sent to the cloud
-- 🖥️ **Lightweight:** Runs smoothly on personal machines
+MemoryMate is a fully offline, privacy-preserving voice assistant that transcribes your speech using `Whisper.cpp`, interprets your commands using `LLaMA.cpp`, and responds—all without needing internet access.
 
 ---
 
-## 📁 File Structure
+## ✅ Phase 1 – Core Features
+
+- 🎤 **Voice Recording**  
+  Records your voice locally using your system’s microphone.
+
+- 🧠 **Speech-to-Text via Whisper.cpp**  
+  Converts your recorded voice to text using OpenAI’s Whisper model (offline).
+
+- 🤖 **Local AI Response with LLaMA.cpp**  
+  Sends the text to a local Mistral 7B model running on LLaMA.cpp and gets a smart response.
+
+- 🔁 **Fully Offline**  
+  No internet, no APIs, no tracking—everything happens on your device.
+
+---
+
+## 🚧 Phase 2 – In Progress
+
+- 🔊 **Text-to-Speech (TTS)**  
+  AI speaks back using tools like `say`, `espeak`, or Coqui TTS.
+
+- 🖥️ **GUI / Web App**  
+  Launch a clean frontend using **Streamlit** or **Gradio**.
+
+- 📖 **Memory Persistence**  
+  Add context memory using `memory.json` so the assistant remembers previous chats.
+
+- 🧹 **GitHub Polish**  
+  Improved documentation and visuals for better impact (e.g., Samsung Hackathon).
+
+---
+
+## 📂 Folder Structure
 
 ```
 memorymate-offline-ai/
-├── main.py              # AI logic: processes and replies
-├── record.py            # Records voice input to WAV
-├── my_voice.wav         # Temporary recorded voice file
-├── __pycache__/         # Python cache files
-├── README.md            # This file
+├── main.py               # Orchestrates all voice-to-AI interaction
+├── record.py             # Microphone audio recording
+├── memory.json           # Stores conversation memory
+├── README.md             # This file
+├── .gitignore
+├── LICENSE
+├── whisper.cpp/          # Cloned & built Whisper.cpp
+└── llama.cpp/            # Cloned & built LLaMA.cpp
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Setup Instructions
 
-- **Python**
-- **Whisper.cpp** – Local speech-to-text
-- **LLaMA.cpp** – Local large language model
-- **PyTorch** (optional)
-- **NumPy**
+### 1. Install Requirements
+
+- Python 3.10+
+- `ffmpeg` (`brew install ffmpeg` on macOS)
+- C++ compiler (for building Whisper and LLaMA)
+
+### 2. Build Dependencies
+
+Clone and build:
+
+- [Whisper.cpp](https://github.com/ggerganov/whisper.cpp)
+- [LLaMA.cpp](https://github.com/ggerganov/llama.cpp)
+
+### 3. Download Models
+
+- Whisper: [`ggml-base.en.bin`](https://huggingface.co/ggerganov/whisper.cpp)
+- LLaMA: `mistral-7b-instruct-v0.1.Q4_K_M.gguf` (via HuggingFace or other)
+
+Place them in:
+
+- `~/whisper.cpp/models/`
+- `~/llama.cpp/models/`
 
 ---
 
-## 🧪 Getting Started
-
-### 1. Clone the repository
+## ▶️ Run the App
 
 ```bash
-git clone https://github.com/Safalguptaofficial/memorymate-offline-ai.git
-cd memorymate-offline-ai
+python3 main.py
 ```
 
-### 2. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Download models
-
-- 📥 Download and set up:
-  - Whisper model (for transcription)
-  - LLaMA weights (for local inference)
-
-Set correct model paths in `main.py` as needed.
+Speak when prompted 🎤  
+Your voice → Transcription → LLaMA AI response 🧠
 
 ---
 
-## ▶️ Usage
+## 💡 Use Cases
 
-### Step 1: Record your voice
-
-```bash
-python record.py
-```
-
-### Step 2: Let MemoryMate respond
-
-```bash
-python main.py
-```
-
-You’ll hear a smart AI reply that understands your prompt — all offline!
+- 💬 Offline Chatbot
+- 🔐 Privacy-first AI Assistant
+- 👩‍⚕️ Healthcare or Elder Care Tool
+- 🏫 Education Companion
 
 ---
 
-## 📈 Future Improvements
+## 🎯 Why It Matters
 
-- GUI with voice visualizer
-- Raspberry Pi integration
-- Store memory logs in JSON or database
-- Personal diary/chat history
-- Real-time speech detection
+This project was built with privacy, speed, and offline usability in mind—perfect for:
 
----
-
-## 📸 Screenshots / Demo (Coming Soon)
-
-> Want to contribute a UI or GIF demo? Open a pull request!
+- 🌐 Low-connectivity environments
+- 📱 On-device AI deployments
+- 💻 Hackathons & Prototypes (e.g., Samsung Hackathon)
 
 ---
 
-## 👤 Author
+## 🤝 Contributing
 
-**Safal Gupta**  
-[@Safalguptaofficial](https://github.com/Safalguptaofficial)  
-📍 Jaipur | 🏫 VIT Vellore | 🎓 CSE - IoT
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.  
-Feel free to use, modify, and share it. Contributions are welcome!
+Have ideas or want to improve it?  
+Open an issue or submit a pull request.
 
 ---
 
-### ⭐️ Support
+## 📜 License
 
-If you find this project useful, consider giving it a ⭐️ on GitHub and sharing it with friends who love AI & privacy!
+MIT License – see [LICENSE](LICENSE) for full details.
